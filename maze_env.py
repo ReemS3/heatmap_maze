@@ -77,21 +77,21 @@ class MazeEnv:
         rows, cols = self.maze.shape[0], self.maze.shape[1]
         fig, ax = plt.subplots()
         # Create a custom colormap with an additional color for the mine
-        cmap = plt.cm.cool
+        cmap = plt.cm.coolwarm
 
         im = ax.imshow(
             rewards, cmap=cmap, origin="lower", norm=plt.Normalize(-1, 1)
         )
 
         # Create colorbar
-        cbar = ax.figure.colorbar(im, ax=ax, extend="max")
+        cbar = ax.figure.colorbar(im, ax=ax)
         cbar.ax.set_ylabel("Reward and Punishment", rotation=-90, va="bottom")
 
         # Plot the start (green) and goal (red) positions
         ax.scatter(
             self.start_coord[1],
             self.start_coord[0],
-            color="yellow",
+            color="darkorange",
             label="Start",
         )
         ax.scatter(
@@ -105,7 +105,7 @@ class MazeEnv:
         ax.scatter(
             self.mine_coord[1],
             self.mine_coord[0],
-            color="red",
+            color="black",
             label="Mine",
         )
 
@@ -129,10 +129,10 @@ class MazeEnv:
 
 maze = MazeEnv(rows=10, cols=10)
 maze.set_coord_start_goal_mine(
-    start_coord=(0, 0), goal_coord=(3, 3), mine_coord=(7, 7)
+    start_coord=(0, 0), goal_coord=(9, 9), mine_coord=(7, 8)
 )
 
 maze.set_density_magnitude_goal_mine(
-    punishment_val=0.2,  reward_val=1, punishment_density=3, reward_density=3
+    punishment_val=0.7,  reward_val=0.5, punishment_density=3, reward_density=3
 )
 maze.plot_maze()
