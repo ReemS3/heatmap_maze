@@ -75,9 +75,9 @@ class MazeEnv:
         """Plot the maze with rewards and punishments."""
         rewards = self.calculate_rewards()
         rows, cols = self.maze.shape[0], self.maze.shape[1]
-        fig, ax = plt.subplots()
-        # Create a custom colormap with an additional color for the mine
-        cmap = plt.cm.coolwarm
+        __, ax = plt.subplots()
+        # Reverse the colours of coolwarm
+        cmap = plt.cm.coolwarm.reversed()
 
         im = ax.imshow(
             rewards, cmap=cmap, origin="lower", norm=plt.Normalize(-1, 1)
@@ -108,6 +108,7 @@ class MazeEnv:
             color="black",
             label="Mine",
         )
+        # print(rewards[self.start_coord])
 
         # Add the legend
         # ax.legend()
@@ -129,10 +130,10 @@ class MazeEnv:
 
 maze = MazeEnv(rows=10, cols=10)
 maze.set_coord_start_goal_mine(
-    start_coord=(0, 0), goal_coord=(9, 9), mine_coord=(7, 8)
+    start_coord=(0, 0), goal_coord=(9, 9), mine_coord=(4,5)
 )
 
 maze.set_density_magnitude_goal_mine(
-    punishment_val=0.7,  reward_val=0.5, punishment_density=3, reward_density=3
+    punishment_val=1,  reward_val=.2, punishment_density=2, reward_density=2
 )
 maze.plot_maze()
